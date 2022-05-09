@@ -17,7 +17,7 @@ import kotlin.math.min
 
 class MainActivity : AppCompatActivity() {
 
-
+    //commit new version to orgin
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
