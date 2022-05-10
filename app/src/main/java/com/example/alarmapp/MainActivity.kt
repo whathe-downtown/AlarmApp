@@ -5,22 +5,20 @@ import android.app.PendingIntent
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.content.edit
 import com.example.alarmapp.databinding.ActivityMainBinding
 import java.util.*
-import kotlin.math.min
 
 class MainActivity : AppCompatActivity() {
 
-    //commit new version to orgin
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
         initOnOffButton()
         initChangeAlarmTimeButton()
@@ -31,8 +29,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initOnOffButton() {
-        val onOffButton = findViewById<Button>(R.id.onOffButton)
-        onOffButton.setOnClickListener {
+
+        binding.onOffButton.setOnClickListener {
 
             val model = it.tag as? AlarmDisplayModel ?: return@setOnClickListener
             val newModel = saveAlarmModel(model.hour, model.minute, model.onOff.not())
@@ -52,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                 val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
                 val intent = Intent(this, AlarmReceiver::class.java)
                 val pendingIntent = PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE,
-                    intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                    intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
 
                 alarmManager.setInexactRepeating(
                     AlarmManager.RTC_WAKEUP,
@@ -69,8 +67,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initChangeAlarmTimeButton() {
-        val changeAlarmButton = findViewById<Button>(R.id.changeAlarmTimeButton)
-        changeAlarmButton.setOnClickListener {
+        binding.changeAlarmTimeButton.setOnClickListener {
 
             val calendar = Calendar.getInstance()
             TimePickerDialog(this, { picker, hour, minute ->
@@ -122,9 +119,7 @@ class MainActivity : AppCompatActivity() {
 
         // 보정 보정 예외처리
 
-
-
-        val pendingIntent = PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE, Intent(this, AlarmReceiver::class.java), PendingIntent.FLAG_NO_CREATE)
+        val pendingIntent = PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE, Intent(this, AlarmReceiver::class.java), PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_NO_CREATE)
 
         if ((pendingIntent == null) and alarmModel.onOff) {
             // 알람은 꺼져있는데, 데이터는 켜저있는 경우
@@ -141,15 +136,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun renderView(model: AlarmDisplayModel) {
-        findViewById<TextView>(R.id.ampmTextView).apply {
+        binding.ampmTextView.apply {
             text = model.ampmText
         }
 
-        findViewById<TextView>(R.id.timeTextView).apply {
+        binding.timeTextView.apply {
             text = model.timeText
         }
 
-        findViewById<Button>(R.id.onOffButton).apply {
+        binding.onOffButton.apply {
             text = model.onOffText
             tag = model
         }
@@ -157,10 +152,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun cancelAlarm() {
-        val pendingIntent = PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE, Intent(this, AlarmReceiver::class.java), PendingIntent.FLAG_NO_CREATE)
+        val pendingIntent = PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE, Intent(this, AlarmReceiver::class.java),PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_NO_CREATE)
         pendingIntent?.cancel()
     }
-
 
     companion object {
         private const val SHARED_PREFERENCES_NAME = "time"

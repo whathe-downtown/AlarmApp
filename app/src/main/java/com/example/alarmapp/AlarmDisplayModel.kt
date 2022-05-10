@@ -1,11 +1,10 @@
 package com.example.alarmapp
 
 data class AlarmDisplayModel(
-    var hour: Int,
-    var minute: Int,
+    val hour: Int,
+    val minute: Int,
     var onOff: Boolean
 ) {
-
 
     val timeText: String
         get() {
@@ -22,10 +21,11 @@ data class AlarmDisplayModel(
 
     val onOffText: String
         get() {
-            return if(onOff) "알람 끄기" else "알람 끄기"
+            return if (onOff) "알람 끄기" else "알람 켜기"
         }
 
     fun makeDataForDB(): String {
         return "$hour:$minute"
     }
+
 }
