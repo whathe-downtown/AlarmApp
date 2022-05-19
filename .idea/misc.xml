@@ -5,6 +5,11 @@
       <map>
         <entry key="app/src/main/res/drawable/background_white_ring.xml" value="0.139" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21666666666666667" />
+        <entry key="app/src/main/res/layout/fragment_alarm.xml" value="0.27794871794871795" />
+        <entry key="app/src/main/res/layout/fragment_stop.xml" value="0.27794871794871795" />
+        <entry key="app/src/main/res/layout/fragment_timer.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/alarm_menu.xml" value="0.27794871794871795" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.27794871794871795" />
       </map>
     </option>
   </component>

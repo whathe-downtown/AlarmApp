@@ -1,4 +1,4 @@
-package com.example.alarmapp
+package com.example.alarmapp.model
 
 data class AlarmDisplayModel(
     val hour: Int,
