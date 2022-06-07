@@ -1,15 +1,20 @@
-package com.example.alarmapp.screen.main
+package com.example.alarmapp.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 
 enum class AlarmStateType{
     ON, OFF
 }
 
-class MainViewModel() : ViewModel(){
+@HiltViewModel
+class MainViewModel @Inject constructor(
+//    private val
+) : ViewModel(){
 
     private val _currentAlarmButtonValue = MutableLiveData<Boolean>()
 

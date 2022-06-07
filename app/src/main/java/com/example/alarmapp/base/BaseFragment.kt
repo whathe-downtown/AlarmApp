@@ -1,9 +1,10 @@
-package com.example.alarmapp.screen.base
+package com.example.alarmapp.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -27,4 +28,9 @@ abstract class BaseFragment<T: ViewDataBinding>(@LayoutRes val layoutRes: Int): 
         super.onViewCreated(view, savedInstanceState)
     }
 
+    protected fun shortShowToast(msg: String) =
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+
+    protected fun longShowToast(msg: String) =
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
 }

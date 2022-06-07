@@ -1,6 +1,13 @@
-package com.example.alarmapp.model
+package com.example.alarmapp.db.model
 
-data class AlarmDisplayModel(
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "alarm_table")
+data class AlarmModel(
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
+    @ColumnInfo(name = "alarm") val alarm: String,
     val hour: Int,
     val minute: Int,
     var onOff: Boolean
